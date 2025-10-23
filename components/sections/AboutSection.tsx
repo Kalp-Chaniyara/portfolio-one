@@ -160,14 +160,14 @@ export default function AboutSection() {
             transition={{ delay: 1 }}
             className="grid grid-cols-2 gap-8 max-w-md mx-auto"
           >
-            <div className="glass glow p-6 rounded-2xl">
+            {/* <div className="glass glow p-6 rounded-2xl">
               <div className="text-4xl font-bold text-gradient mb-2">{counts.projects}+</div>
               <div className="text-white/60">Projects Completed</div>
             </div>
             <div className="glass glow p-6 rounded-2xl">
               <div className="text-4xl font-bold text-gradient mb-2">{counts.experience}+</div>
               <div className="text-white/60">Years Experience</div>
-            </div>
+            </div> */}
           </motion.div>
         </motion.div>
       </div>

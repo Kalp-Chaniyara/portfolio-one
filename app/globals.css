@@ -59,11 +59,12 @@
     width: 20px;
     height: 20px;
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.5);
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0.3) 50%, transparent 100%);
     pointer-events: none;
     z-index: 9999;
     transition: transform 0.1s ease;
-    mix-blend-mode: difference;
+    mix-blend-mode: screen;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.6), 0 0 40px rgba(255, 255, 255, 0.3);
   }
 
   .cursor-glow-trail {
@@ -71,10 +72,12 @@
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    border: 1px solid rgba(255, 255, 255, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
     pointer-events: none;
     z-index: 9998;
     transition: transform 0.2s ease;
+    box-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
   }
 }
 
