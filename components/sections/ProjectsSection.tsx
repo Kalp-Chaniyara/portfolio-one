@@ -3,6 +3,7 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState } from 'react';
 import { ExternalLink, Github, X } from 'lucide-react';
+import Image from 'next/image';
 
 const projects = [
   {
@@ -94,7 +95,7 @@ export default function ProjectsSection() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
-                className="glass glass-hover p-6 rounded-2xl cursor-pointer glow"
+                className="glass p-6 rounded-2xl cursor-pointer"
                 onClick={() => setSelectedProject(project)}
               >
                 <div className="text-6xl mb-4">{project.image}</div>
@@ -129,7 +130,7 @@ export default function ProjectsSection() {
               initial={{ scale: 0.9, y: 20 }}
               animate={{ scale: 1, y: 0 }}
               exit={{ scale: 0.9, y: 20 }}
-              className="glass glow p-8 rounded-3xl max-w-2xl w-full max-h-[90vh] overflow-y-auto"
+              className="glass p-8 rounded-3xl max-w-2xl w-full max-h-[90vh] overflow-y-auto"
               onClick={(e) => e.stopPropagation()}
             >
               <div className="flex justify-between items-start mb-6">

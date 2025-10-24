@@ -82,7 +82,7 @@ export default function SkillsSection() {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="glass glow p-6 rounded-2xl"
+              className="glass p-6 rounded-2xl"
             >
               <h3 className="text-xl font-bold mb-2 text-gradient">Frontend</h3>
               <p className="text-white/60">
@@ -95,7 +95,7 @@ export default function SkillsSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.2 }}
-              className="glass glow p-6 rounded-2xl"
+              className="glass p-6 rounded-2xl"
             >
               <h3 className="text-xl font-bold mb-2 text-gradient">Backend</h3>
               <p className="text-white/60">
@@ -108,7 +108,7 @@ export default function SkillsSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.4 }}
-              className="glass glow p-6 rounded-2xl"
+              className="glass p-6 rounded-2xl"
             >
               <h3 className="text-xl font-bold mb-2 text-gradient">DevOps</h3>
               <p className="text-white/60">

@@ -241,14 +241,82 @@
 //   );
 // }
 
-
 'use client';
 
-import useCanvasCursor from '@/hooks/use-canvasCursor';
+import { useEffect, useState } from 'react';
+import { motion } from 'framer-motion';
 
-const CursorGlow = () => {
-  useCanvasCursor();
+export default function CursorGlow() {
+  const [pos, setPos] = useState({ x: 0, y: 0 });
+  const [trail, setTrail] = useState({ x: 0, y: 0 });
+  const [hover, setHover] = useState(false);
 
-  return <canvas className='pointer-events-none fixed inset-0' id='canvas' />;
-};
-export default CursorGlow;
+  useEffect(() => {
+    const move = (e: MouseEvent) => {
+      setPos({ x: e.clientX, y: e.clientY });
+      setTimeout(() => setTrail({ x: e.clientX, y: e.clientY }), 100);
+    };
+
+    const enter = () => setHover(true);
+    const leave = () => setHover(false);
+
+    const els = document.querySelectorAll('button, a, [role="button"], .glass-hover');
+    els.forEach((el) => {
+      el.addEventListener('mouseenter', enter);
+      el.addEventListener('mouseleave', leave);
+    });
+
+    window.addEventListener('mousemove', move);
+    return () => {
+      window.removeEventListener('mousemove', move);
+      els.forEach((el) => {
+        el.removeEventListener('mouseenter', enter);
+        el.removeEventListener('mouseleave', leave);
+      });
+    };
+  }, []);
+
+  return (
+    <>
+      {/* soft trail */}
+      <motion.div
+        className="fixed pointer-events-none z-[9999]"
+        style={{
+          left: trail.x,
+          top: trail.y,
+          transform: 'translate(-50%, -50%)',
+          width: 60,
+          height: 60,
+          borderRadius: '50%',
+          background:
+            'radial-gradient(circle, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0) 70%)',
+        }}
+        animate={{
+          scale: hover ? 1.3 : 1,
+          opacity: hover ? 0.6 : 0.3,
+        }}
+        transition={{ duration: 0.4, ease: 'easeOut' }}
+      />
+
+      {/* main glow */}
+      <motion.div
+        className="fixed pointer-events-none z-[9999]"
+        style={{
+          left: pos.x,
+          top: pos.y,
+          transform: 'translate(-50%, -50%)',
+          width: 12,
+          height: 12,
+          borderRadius: '50%',
+          background: 'white',
+          boxShadow: '0 0 15px rgba(255,255,255,0.8)',
+        }}
+        animate={{
+          scale: hover ? 1.3 : 1,
+          opacity: hover ? 0.9 : 0.6,
+        }}
+        transition={{ duration: 0.2, ease: 'easeOut' }}
+      />
+    </>
+  );
+}

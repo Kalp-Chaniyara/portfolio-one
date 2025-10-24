@@ -1,7 +1,6 @@
 'use client';
 
 import BackgroundAnimation from '@/components/BackgroundAnimation';
-import CursorGlow from '@/components/CursorGlow';
 import Navigation from '@/components/Navigation';
 import ScrollIndicator from '@/components/ScrollIndicator';
 import AboutSection from '@/components/sections/AboutSection';
@@ -14,9 +13,8 @@ export default function Home() {
   return (
     <main className="relative">
       <BackgroundAnimation />
-      <CursorGlow />
       <Navigation />
-      <ScrollIndicator />
+      {/* <ScrollIndicator /> */}
 
       <AboutSection />
       <SkillsSection />
@@ -25,7 +23,7 @@ export default function Home() {
       <ContactSection />
 
       <footer className="text-center py-8 text-white/40 text-sm">
-        <p>© 2024 Your Name. All rights reserved.</p>
+        <p>© 2025 Kalp Chaniyara. All rights reserved.</p>
       </footer>
     </main>
   );

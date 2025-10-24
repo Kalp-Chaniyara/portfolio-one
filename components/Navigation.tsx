@@ -33,12 +33,16 @@ export default function Navigation() {
   return (
     <>
       <motion.nav
-        initial={{ y: -100 }}
-        animate={{ y: 0 }}
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          scrolled ? 'glass glow' : ''
-        }`}
-      >
+  initial={{ opacity: 0, backdropFilter: 'blur(0px)', boxShadow: '0 0 0px rgba(255,255,255,0)' }}
+  animate={{
+    opacity: 1,
+    backdropFilter: scrolled ? 'blur(16px)' : 'blur(0px)',
+    boxShadow: scrolled ? '0 0 30px rgba(255,255,255,0.15)' : '0 0 0px rgba(255,255,255,0)'
+  }}
+  transition={{ duration: 0.5, ease: 'easeOut' }}
+  className={`fixed top-0 left-0 right-0 z-50 ${scrolled ? 'glass glow' : ''}`}
+>
+
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <motion.div
@@ -52,16 +56,14 @@ export default function Navigation() {
             <div className="hidden md:flex space-x-8">
               {navItems.map((item, index) => (
                 <motion.button
-                  key={item.name}
-                  initial={{ opacity: 0, y: -20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.1 }}
-                  onClick={() => scrollToSection(item.href)}
-                  className="text-white/80 hover:text-white transition-colors relative group"
-                >
-                  {item.name}
-                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-white transition-all group-hover:w-full" />
-                </motion.button>
+                key={item.name}
+                onClick={() => scrollToSection(item.href)}
+                className="relative text-white/80 px-2 py-1 rounded transition-colors duration-300 group hover:text-white hover:bg-white/10"
+              >
+                {item.name}
+                <span className="absolute bottom-1 left-0 h-0.5 w-0 bg-gradient-to-r from-white via-white/70 to-transparent rounded transition-all duration-700 ease-out group-hover:w-full"></span>
+              </motion.button>
+              
               ))}
             </div>
 
@@ -87,15 +89,13 @@ export default function Navigation() {
             <div className="flex flex-col p-8 space-y-6 mt-16">
               {navItems.map((item, index) => (
                 <motion.button
-                  key={item.name}
-                  initial={{ opacity: 0, x: 20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: index * 0.1 }}
-                  onClick={() => scrollToSection(item.href)}
-                  className="text-left text-xl text-white/80 hover:text-white transition-colors"
-                >
-                  {item.name}
-                </motion.button>
+                key={item.name}
+                className="relative text-white/80 hover:text-white transition-colors"
+              >
+                {item.name}
+                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-white to-gray-400 transition-all duration-300 group-hover:w-full"></span>
+              </motion.button>
+              
               ))}
             </div>
           </motion.div>
