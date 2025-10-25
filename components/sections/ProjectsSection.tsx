@@ -8,9 +8,9 @@ import Image from 'next/image';
 const projects = [
   {
     id: 1,
-    title: 'E-Commerce Platform',
-    description: 'A full-stack e-commerce solution with payment integration',
-    image: '🛒',
+    title: 'Linkify',
+    description: 'URL manager built with React and Node.js that solves the “forgotten bookmark” problem by saving, organizing and reminding user by mail.',
+    image: '/images/projects/Linkify.png',
     tech: ['React', 'Node.js', 'MongoDB', 'Stripe'],
     github: 'https://github.com',
     demo: 'https://demo.com',
@@ -18,9 +18,9 @@ const projects = [
   },
   {
     id: 2,
-    title: 'Social Media Dashboard',
-    description: 'Analytics dashboard for social media management',
-    image: '📊',
+    title: 'Portfolio Website',
+    description: 'Next.js portfolio built with TypeScript, Tailwind CSS, and Framer Motion, featuring glassmorphism design with SSR, dynamic routing and responsive design.',
+    image: '/images/projects/Portfolio.png',
     tech: ['Next.js', 'TypeScript', 'PostgreSQL', 'Chart.js'],
     github: 'https://github.com',
     demo: 'https://demo.com',
@@ -30,7 +30,7 @@ const projects = [
     id: 3,
     title: 'AI Content Generator',
     description: 'AI-powered content creation tool',
-    image: '🤖',
+    image: '/images/projects/Ifest25.png',
     tech: ['React', 'Python', 'OpenAI', 'FastAPI'],
     github: 'https://github.com',
     demo: 'https://demo.com',
@@ -40,7 +40,7 @@ const projects = [
     id: 4,
     title: 'Task Management App',
     description: 'Collaborative project management tool',
-    image: '✅',
+    image: '/images/projects/Chatbot.png',
     tech: ['Vue.js', 'Firebase', 'Tailwind', 'WebSocket'],
     github: 'https://github.com',
     demo: 'https://demo.com',
@@ -50,7 +50,7 @@ const projects = [
     id: 5,
     title: 'Weather Forecast App',
     description: 'Real-time weather tracking application',
-    image: '🌤️',
+    image: '/images/projects/DBMS.png',
     tech: ['React Native', 'Redux', 'Weather API'],
     github: 'https://github.com',
     demo: 'https://demo.com',
@@ -60,7 +60,7 @@ const projects = [
     id: 6,
     title: 'Portfolio Builder',
     description: 'No-code portfolio website builder',
-    image: '🎨',
+    image: '/images/projects/Chat.png',
     tech: ['Next.js', 'Supabase', 'Framer Motion'],
     github: 'https://github.com',
     demo: 'https://demo.com',
@@ -98,9 +98,25 @@ export default function ProjectsSection() {
                 className="glass p-6 rounded-2xl cursor-pointer"
                 onClick={() => setSelectedProject(project)}
               >
-                <div className="text-6xl mb-4">{project.image}</div>
-                <h3 className="text-xl font-bold mb-2">{project.title}</h3>
-                <p className="text-white/60 mb-4">{project.description}</p>
+                {/* <div className="text-6xl mb-4">{project.image}</div> */}
+                <div className="relative h-40 sm:h-48 overflow-hidden">
+                  <Image
+                    src={project.image}
+                    alt={project.title}
+                    fill
+                    className="object-cover transform group-hover/card:scale-110 transition-transform duration-500"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                </div>
+                <div className="relative p-4 sm:p-6">
+                  <h3
+                    className="text-xl font-bold mb-2">
+                    {project.title}
+                  </h3>
+                  <p className="text-white/60 mb-4">
+                    {project.description}
+                  </p>
+                </div>
                 <div className="flex flex-wrap gap-2">
                   {project.tech.map((tech) => (
                     <span
@@ -116,6 +132,9 @@ export default function ProjectsSection() {
           </div>
         </motion.div>
       </div>
+
+
+
 
       <AnimatePresence>
         {selectedProject && (

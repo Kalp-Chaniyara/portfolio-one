@@ -36,7 +36,7 @@ export default function ContactSection() {
             Get In Touch
           </h2>
           <p className="text-center text-white/60 mb-16">
-            Have a project in mind? Let's work together
+            Have a project in mind? Let us work together
           </p>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
