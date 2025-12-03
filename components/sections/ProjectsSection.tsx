@@ -12,7 +12,7 @@ const projects = [
     image: '/images/projects/port.png',
     tech: ['Next.js', 'TypeScript', 'Nodemailer', 'Framer Motion', 'Tailwind CSS'],
     github: 'https://github.com/Kalp-Chaniyara/portfolio-one',
-    demo: 'https://demo.com',
+    demo: 'https://portfolio-kalpchaniyara.vercel.app/',
     details: 'Developed a modern, interactive portfolio using Next.js, TypeScript, Tailwind CSS, and Framer Motion. Designed with a glassmorphism aesthetic, animated sections, custom cursor effects, and responsive layouts. Implemented modular components, accessible Radix UI primitives, optimized images, and a server-powered contact form using Nodemailer. Built for performance, scalability, and an immersive user experience.',
   },
   {
@@ -122,18 +122,18 @@ export default function ProjectsSection() {
                     ))}
                   </div>
 
-                  <div className="flex gap-4 pt-4 border-t border-white/10">
-                  {project.github && (
-                    <a
-                      href={project.github}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex-1 glass glass-hover px-4 py-2 rounded-xl flex items-center justify-center gap-2 text-sm hover:bg-white/10 transition-colors"
-                    >
-                      <Github size={16} />
-                      <span>Code</span>
-                    </a>
-                  )}
+                  <div className="flex flex-wrap gap-4 pt-4 border-t border-white/10">
+                    {project.github && (
+                      <a
+                        href={project.github}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex-1 glass glass-hover px-4 py-2 rounded-xl flex items-center justify-center gap-2 text-sm hover:bg-white/10 transition-colors"
+                      >
+                        <Github size={16} />
+                        <span>Code</span>
+                      </a>
+                    )}
                     {project.demo && (
                       <a
                         href={project.demo}

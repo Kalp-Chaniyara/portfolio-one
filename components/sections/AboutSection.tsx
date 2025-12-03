@@ -63,7 +63,7 @@ export default function AboutSection() {
   }, [roleIndex]);
 
   return (
-    <section id="about" className="min-h-screen flex items-center justify-center px-4 pt-20">
+    <section id="about" className="min-h-screen flex items-center justify-center px-4 py-20">
       <div className="max-w-6xl w-full">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
