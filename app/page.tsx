@@ -38,7 +38,7 @@ export default function Home() {
       <AboutSection />
       <SkillsSection />
       <ProjectsSection />
-      <BlogSection />
+      {/* <BlogSection /> */}
       <ContactSection />
 
       <footer className="text-center py-8 text-white/40 text-sm">

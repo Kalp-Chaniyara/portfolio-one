@@ -11,9 +11,33 @@ export default function ContactSection() {
     message: '',
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Form submitted:', formData);
+    setIsSubmitting(true);
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        alert('Message sent successfully!');
+        setFormData({ name: '', email: '', message: '' });
+      } else {
+        alert('Failed to send message. Please try again.');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      alert('Something went wrong. Please try again later.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -55,7 +79,7 @@ export default function ContactSection() {
                   </div>
                   <div>
                     <h4 className="font-semibold mb-1">Email</h4>
-                    <p className="text-white/60">your.email@example.com</p>
+                    <p className="text-white/60">kalpchaniyara1416@gmail.com</p>
                   </div>
                 </div>
 
@@ -65,7 +89,7 @@ export default function ContactSection() {
                   </div>
                   <div>
                     <h4 className="font-semibold mb-1">Phone</h4>
-                    <p className="text-white/60">+1 (555) 123-4567</p>
+                    <p className="text-white/60">+91 9054145155</p>
                   </div>
                 </div>
 
@@ -75,18 +99,18 @@ export default function ContactSection() {
                   </div>
                   <div>
                     <h4 className="font-semibold mb-1">Location</h4>
-                    <p className="text-white/60">San Francisco, CA</p>
+                    <p className="text-white/60">Gandhinagar, Gujarat, India</p>
                   </div>
                 </div>
               </div>
 
-              <div className="mt-12 glass glow p-6 rounded-2xl">
+              {/* <div className="mt-12 glass glow p-6 rounded-2xl">
                 <h4 className="font-semibold mb-4">Working Hours</h4>
                 <div className="space-y-2 text-white/60">
                   <p>Monday - Friday: 9:00 AM - 6:00 PM</p>
                   <p>Weekend: By Appointment</p>
                 </div>
-              </div>
+              </div> */}
             </motion.div>
 
             <motion.div
@@ -107,7 +131,8 @@ export default function ContactSection() {
                     value={formData.name}
                     onChange={handleChange}
                     required
-                    className="w-full glass px-4 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-white/20 transition-all bg-transparent"
+                    disabled={isSubmitting}
+                    className="w-full glass px-4 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-white/20 transition-all bg-transparent disabled:opacity-50"
                     placeholder="Your name"
                   />
                 </div>
@@ -123,7 +148,8 @@ export default function ContactSection() {
                     value={formData.email}
                     onChange={handleChange}
                     required
-                    className="w-full glass px-4 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-white/20 transition-all bg-transparent"
+                    disabled={isSubmitting}
+                    className="w-full glass px-4 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-white/20 transition-all bg-transparent disabled:opacity-50"
                     placeholder="your.email@example.com"
                   />
                 </div>
@@ -138,20 +164,28 @@ export default function ContactSection() {
                     value={formData.message}
                     onChange={handleChange}
                     required
+                    disabled={isSubmitting}
                     rows={6}
-                    className="w-full glass px-4 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-white/20 transition-all resize-none bg-transparent"
+                    className="w-full glass px-4 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-white/20 transition-all resize-none bg-transparent disabled:opacity-50"
                     placeholder="Your message..."
                   />
                 </div>
 
                 <motion.button
                   type="submit"
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                  className="w-full glass glass-hover px-6 py-4 rounded-lg font-semibold flex items-center justify-center gap-2"
+                  disabled={isSubmitting}
+                  whileHover={{ scale: isSubmitting ? 1 : 1.02 }}
+                  whileTap={{ scale: isSubmitting ? 1 : 0.98 }}
+                  className="w-full glass glass-hover px-6 py-4 rounded-lg font-semibold flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed"
                 >
-                  <span>Send Message</span>
-                  <Send size={20} />
+                  {isSubmitting ? (
+                    <span>Sending...</span>
+                  ) : (
+                    <>
+                      <span>Send Message</span>
+                      <Send size={20} />
+                    </>
+                  )}
                 </motion.button>
               </form>
             </motion.div>
@@ -168,15 +202,15 @@ export default function ContactSection() {
               Prefer to connect on social media?
             </p>
             <div className="flex justify-center gap-4">
-              <a href="#" className="text-white/80 hover:text-white transition-colors">
+              <a href="https://www.linkedin.com/in/chaniyarakalp/" className="text-white/80 hover:text-white transition-colors">
                 LinkedIn
               </a>
               <span className="text-white/30">•</span>
-              <a href="#" className="text-white/80 hover:text-white transition-colors">
+              <a href="https://github.com/Kalp-Chaniyara" className="text-white/80 hover:text-white transition-colors">
                 GitHub
               </a>
               <span className="text-white/30">•</span>
-              <a href="#" className="text-white/80 hover:text-white transition-colors">
+              <a href="https://x.com/KalpChaniyara14" className="text-white/80 hover:text-white transition-colors">
                 Twitter
               </a>
             </div>

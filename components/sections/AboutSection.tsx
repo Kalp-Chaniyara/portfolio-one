@@ -2,12 +2,13 @@
 
 import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
-import { Github, Linkedin, Twitter } from 'lucide-react';
+import { Github, Linkedin, Twitter, Mail, FileDown } from 'lucide-react';
+import Image from 'next/image';
 
 export default function AboutSection() {
   const [counts, setCounts] = useState({ projects: 0, experience: 0 });
   const [displayText, setDisplayText] = useState('');
-  const roles = ['Full Stack Developer', 'Lazy Blogger', 'Creative Coder'];
+  const roles = ['Full Stack Developer', 'Creative Coder'];
   const [roleIndex, setRoleIndex] = useState(0);
 
   useEffect(() => {
@@ -80,11 +81,15 @@ export default function AboutSection() {
                 transition={{ type: 'spring', duration: 1 }}
                 className="mb-8 inline-block"
               >
-                <div className="relative">
-                  <div className="w-48 h-48 rounded-full overflow-hidden animate-float">
-                    <div className="w-full h-full bg-gradient-to-br from-white/20 to-white/5 flex items-center justify-center text-6xl">
-                      👤
-                    </div>
+                <div className="relative animate-float">
+                  <div className="w-48 h-48 rounded-full overflow-hidden relative">
+                    <Image
+                      src="/images/projects/my_pic1.jpg"
+                      alt="Profile Picture"
+                      fill
+                      className="object-cover"
+                      priority
+                    />
                   </div>
                   <div className="absolute inset-0 rounded-full border-4 border-white/10 animate-pulse" />
                 </div>
@@ -126,11 +131,37 @@ export default function AboutSection() {
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
+                transition={{ delay: 0.7 }}
+                className="flex flex-col md:flex-row items-center justify-center gap-4 mb-12"
+              >
+                <button
+                  onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
+                  className="glass glass-hover px-8 py-3 rounded-full font-semibold flex items-center gap-2 group"
+                >
+                  <Mail size={20} className="group-hover:scale-110 transition-transform" />
+                  <span>Hire Me</span>
+                </button>
+
+                <a
+                  href="https://drive.google.com/file/d/1bshsnrtJNf4oKGXwaI3TNzlkNQ6rK4gK/view?usp=drive_link"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="glass glass-hover px-8 py-3 rounded-full font-semibold flex items-center gap-2 group"
+                >
+                  <FileDown size={20} className="group-hover:scale-110 transition-transform" />
+                  <span>Download CV</span>
+                </a>
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
                 transition={{ delay: 0.8 }}
                 className="flex justify-center gap-6"
               >
                 <a
-                  href="https://github.com"
+                  href="https://github.com/Kalp-Chaniyara"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="glass glass-hover p-4 rounded-full"
@@ -138,7 +169,7 @@ export default function AboutSection() {
                   <Github size={24} />
                 </a>
                 <a
-                  href="https://linkedin.com"
+                  href="https://www.linkedin.com/in/chaniyarakalp/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="glass glass-hover p-4 rounded-full"
@@ -146,7 +177,7 @@ export default function AboutSection() {
                   <Linkedin size={24} />
                 </a>
                 <a
-                  href="https://twitter.com"
+                  href="https://x.com/KalpChaniyara14"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="glass glass-hover p-4 rounded-full"

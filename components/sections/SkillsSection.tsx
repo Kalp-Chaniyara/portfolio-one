@@ -1,29 +1,86 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { useState } from 'react';
 
-const skills = [
-  { name: 'React', icon: '⚛️' },
-  { name: 'Next.js', icon: '▲' },
-  { name: 'TypeScript', icon: '📘' },
-  { name: 'Node.js', icon: '🟢' },
-  { name: 'MongoDB', icon: '🍃' },
-  { name: 'PostgreSQL', icon: '🐘' },
-  { name: 'Tailwind', icon: '🎨' },
-  { name: 'GraphQL', icon: '◈' },
-  { name: 'Docker', icon: '🐳' },
-  { name: 'AWS', icon: '☁️' },
-  { name: 'Git', icon: '📦' },
-  { name: 'Figma', icon: '🎯' },
+const skillCategories = [
+  {
+    title: 'Languages',
+    skills: [
+      'C',
+      'C++',
+      'Java',
+      'Python',
+      'JavaScript',
+      'TypeScript',
+      'Go',
+      'SQL',
+      'HTML',
+      'CSS',
+    ],
+  },
+  {
+    title: 'Developer Tools',
+    skills: [
+      'Git',
+      'GitHub',
+      'Postman',
+      'pgAdmin',
+      'VS Code',
+      'Cursor',
+      'Jupyter Notebook',
+    ],
+  },
+  {
+    title: 'Frameworks',
+    skills: [
+      'Next.js',
+      'Node.js',
+      'Express.js',
+      'React',
+      'Vite',
+      'Tailwind CSS',
+      'Bootstrap',
+    ],
+  },
+  {
+    title: 'Machine Learning/Data Science',
+    skills: [
+      'NumPy',
+      'Pandas',
+      'Matplotlib',
+      'Seaborn',
+      'TensorFlow',
+      'Keras',
+      'Scikit-learn',
+    ],
+  },
+  {
+    title: 'Cloud/Databases',
+    skills: [
+      'MySQL',
+      'MongoDB',
+      'PostgreSQL',
+      'Vercel',
+      'Railway',
+      'Render',
+      'Cloudinary',
+    ],
+  },
+  {
+    title: 'Coursework',
+    skills: [
+      'Database Management System',
+      'Object Oriented Programming',
+      'Data Structures',
+      'Design and Analysis of Algorithms',
+    ],
+  },
 ];
 
 export default function SkillsSection() {
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
-
   return (
     <section id="skills" className="min-h-screen flex items-center justify-center px-4 py-20">
-      <div className="max-w-7xl w-full">
+      <div className="max-w-6xl w-full">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -34,90 +91,38 @@ export default function SkillsSection() {
             Skills & Technologies
           </h2>
           <p className="text-center text-white/60 mb-16">
-            Tools and technologies I work with
+            A comprehensive list of my technical expertise
           </p>
 
-          <div className="relative overflow-hidden">
-            <motion.div
-              className="flex gap-6"
-              animate={{ x: [0, -1920] }}
-              transition={{
-                x: {
-                  repeat: Infinity,
-                  repeatType: 'loop',
-                  duration: 30,
-                  ease: 'linear',
-                },
-              }}
-            >
-              {[...skills, ...skills, ...skills].map((skill, index) => (
-                <motion.div
-                  key={index}
-                  className="glass glass-hover p-8 rounded-2xl min-w-[200px] relative group"
-                  onHoverStart={() => setHoveredIndex(index)}
-                  onHoverEnd={() => setHoveredIndex(null)}
-                  whileHover={{ scale: 1.05 }}
-                >
-                  <div className="text-5xl mb-4 text-center">{skill.icon}</div>
-                  <div className="text-xl font-semibold text-center text-white">
-                    {skill.name}
-                  </div>
-
-                  {hoveredIndex === index && (
+          <div className="glass p-8 md:p-12 rounded-2xl space-y-12">
+            {skillCategories.map((category, categoryIndex) => (
+              <motion.div
+                key={category.title}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: categoryIndex * 0.1 }}
+              >
+                <h3 className="text-2xl font-bold mb-6 text-white/90">
+                  {category.title}
+                </h3>
+                <div className="flex flex-wrap gap-4">
+                  {category.skills.map((skill, skillIndex) => (
                     <motion.div
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      className="absolute -bottom-12 left-1/2 -translate-x-1/2 glass px-4 py-2 rounded-lg whitespace-nowrap text-sm"
+                      key={skill}
+                      whileHover={{ scale: 1.05 }}
+                      className="glass px-6 py-3 rounded-lg text-sm md:text-base font-medium text-white/80 hover:text-white hover:bg-white/10 transition-colors cursor-default"
                     >
-                      Proficient in {skill.name}
+                      {skill}
                     </motion.div>
-                  )}
-                </motion.div>
-              ))}
-            </motion.div>
-          </div>
-
-          <div className="mt-20 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="glass p-6 rounded-2xl"
-            >
-              <h3 className="text-xl font-bold mb-2 text-gradient">Frontend</h3>
-              <p className="text-white/60">
-                Building responsive and interactive user interfaces with modern frameworks
-              </p>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.2 }}
-              className="glass p-6 rounded-2xl"
-            >
-              <h3 className="text-xl font-bold mb-2 text-gradient">Backend</h3>
-              <p className="text-white/60">
-                Creating robust APIs and server-side solutions with scalable architecture
-              </p>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.4 }}
-              className="glass p-6 rounded-2xl"
-            >
-              <h3 className="text-xl font-bold mb-2 text-gradient">DevOps</h3>
-              <p className="text-white/60">
-                Deploying and maintaining applications with modern cloud infrastructure
-              </p>
-            </motion.div>
+                  ))}
+                </div>
+              </motion.div>
+            ))}
           </div>
         </motion.div>
       </div>
     </section>
   );
 }
+
