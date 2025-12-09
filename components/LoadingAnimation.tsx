@@ -11,7 +11,7 @@ export default function LoadingAnimation({ onComplete }: LoadingAnimationProps) 
   useEffect(() => {
     const timer = setTimeout(() => {
       onComplete();
-    }, 1500); // 2.5 seconds
+    }, 1000); // 2.5 seconds
 
     return () => clearTimeout(timer);
   }, [onComplete]);

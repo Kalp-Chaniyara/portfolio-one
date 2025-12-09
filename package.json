@@ -52,9 +52,11 @@
     "eslint": "8.49.0",
     "eslint-config-next": "13.5.1",
     "framer-motion": "^12.23.24",
+    "gray-matter": "^4.0.3",
     "input-otp": "^1.2.4",
     "lucide-react": "^0.446.0",
     "next": "13.5.1",
+    "next-mdx-remote": "^5.0.0",
     "next-themes": "^0.3.0",
     "nodemailer": "^7.0.11",
     "postcss": "8.4.30",
@@ -73,6 +75,7 @@
     "zod": "^3.23.8"
   },
   "devDependencies": {
+    "@tailwindcss/typography": "^0.5.19",
     "@types/nodemailer": "^7.0.4"
   }
 }

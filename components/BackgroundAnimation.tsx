@@ -1,8 +1,12 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { usePathname } from "next/navigation";
 
 const BackgroundAnimation = () => {
+  const pathname = usePathname();
+  const isBlogPost = pathname?.startsWith('/blog/') && pathname !== '/blog';
+
   const [elements, setElements] = useState<
     Array<{
       left: number;
@@ -23,6 +27,10 @@ const BackgroundAnimation = () => {
     }));
     setElements(newElements);
   }, []);
+
+  if (isBlogPost) {
+    return <div className="fixed inset-0 z-0 bg-black" />;
+  }
 
   return (
     <div className="fixed inset-0 z-0">

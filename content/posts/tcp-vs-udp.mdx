@@ -1,0 +1,210 @@
+---
+title: 'Understanding the basics: TCP vs UDP'
+date: '2024-12-09'
+description: "Before going to TCP and UDP, let's just see the 5 layer of the internet and what is the role of each of the layer."
+tags: ['Networking', 'TCP', 'UDP', 'Web Dev']
+---
+
+Have you ever wondered how your request reaches Google, Netflix, or Instagram within milliseconds without any delay? (if network is not slow, obv )
+
+Or your video call smoothly and why your request to google is not going to lost in the forest of internet?
+
+Behind everything there is strong fundamentals that how internet works, so in this blog i will tell you my understanding of TCP and UDP. So, let's take deep dive into it. Lesssssss'go.
+
+---
+
+Before going to TCP and UDP, let's just see the 5 layers of the internet and what is the role of each of the layer.
+
+1. Application Layer
+2. Transport Layer
+3. Network Layer
+4. Link Layer
+5. Physical Layer
+
+This model maps closely to how real Internet communication works today.
+
+
+### Layer 1 - Application Layer
+
+It is like the king of a kingdom, the highest abstract layer. It contains all the protocols that applications use to communicate over the Internet. It defines how data is formatted and exchanged between applications.
+
+- HTTP / HTTPS --> Web browsing
+- DNS --> Domain name lookups
+- SMTP --> Email
+- FTP / SFTP --> File transfers
+
+### Layer 2 - Transport Layer
+
+When you type youtube.com:
+
+Data: “How will I travel from your laptop to YouTube’s server?”
+
+Transport Layer: “Hold my beer.” 🍺
+
+- Provides a way for end-to-end communication between applications
+- Uses ports to deliver data to the correct process
+- Offers different delivery models:
+	- Reliable, ordered delivery (TCP)
+	- Fast, connectionless delivery (UDP)
+
+### Layer 3 - Network Layer
+
+Once the Transport Layer decides where data should go, the Network Layer figures out how to get it there.
+
+- IP (Internet Protocol) --> The backbone of the Internet
+- ICMP --> Ping, traceroute, error handling
+- ARP --> Maps IP addresses to MAC addresses
+
+### Layer 4 - Link Layer
+
+The Link Layer controls how devices on the same network segment communicate - like your PC and home router when you connect to watch Stranger Things Season 5 😄.
+
+- Ethernet
+- Wi-Fi
+- PPP
+- VLAN
+
+### Layer 5 - Physical Layer
+
+A messy, irritated layer of 0s and 1s.
+This is the lowest layer, interacting directly with physical hardware like ethernet cables, fiber-optic cables, radio waves, etc.
+
+---
+
+### What Is TCP?
+
+Think TCP as that overly caring, slightly possessive girlfriend who wants to make absolutely sure everything is perfect.
+
+#### TCP guarantees:
+- Reliable delivery - Did all the bits arrive without corruption?
+- No duplicates
+- Ordered packets - Did the data arrive in the right sequence?
+- Congestion control - Are we overwhelming the network?
+- Flow control - Are we overwhelming the receiver?
+
+### How TCP works
+1. Client and server perform a 3-way handshake
+	(SYN → SYN-ACK → ACK)
+2. They exchange data in an ordered, reliable stream.
+3. They close the connection gracefully (if a request is ongoing, complete it, and do not accept new ones).
+
+The 3-way handshake:
+- _“Hi, can we talk?”_ (SYN)
+- _“Yes, I can talk. Can you?”_ (SYN-ACK)
+- _“Yes, let’s go baby.”_ (ACK)
+
+
+### TCP's Flow Control
+
+TCP ensures that the sender does not overwhelm the receiver. Awwwwww, how good is TCP :)
+
+Every receiver has a limited buffer to store incoming data.
+If the sender transmits too fast, the receiver’s buffer may overflow this leads to packet loss.
+
+
+#### How flow control works
+TCP uses a mechanism called the Receiver Window (`rwnd`):
+
+- The receiver tells the sender how much buffer space it has.
+- This value is included in every ACK.
+- The sender must not send more data than the receiver can handle.
+
+
+### TCP Congestion Control
+
+TCP ensures that the sender does not overwhelm the network itself. Again being nice :()
+
+TCP implements several algorithms to detect and control network congestion.
+
+#### a) Slow Start
+- TCP begins cautiously with a small congestion window.
+- The congestion window doubles every RTT.
+- This continues until packet loss occurs or a threshold is reached.
+
+#### b) Congestion Avoidance
+Once TCP reaches a safe threshold (`ssthresh`), cwnd grows more slowly:
+
+- Linear increase (may be increase 1 segment per RTT)
+- Decrease on packet loss
+
+#### c) Fast Recovery
+When duplicate ACKs indicate packet loss, TCP:
+
+- Immediately retransmits missing data
+- Reduces congestion window
+- Continues in a careful growth phase
+
+That's when you download something large then it first starts slow and then speed up.
+
+---
+
+### UDP - Speedy but lazy
+
+UDP is the exact opposite of what TCP is. UDP is a super chill, carefree boyfriend who:
+
+- Doesn't ask questions
+- Doesn’t want commitment
+- Doesn’t confirm anything
+- Just vibes and leaves
+
+And somehow… it works great for tons of real-time applications.
+
+No handshake, no checking before sending the message, no ordering, no reliability, just sending and finishing its work.
+
+`UDP header → generally small (8 bytes)`
+
+`TCP header → larger in size due to extra information (20 bytes)`
+Which means:
+
+### That’s why UDP is used in:
+- Video calls
+- Gaming
+- Live streaming
+- DNS queries
+
+---
+
+### When to choose speedy UDP?
+
+It is not that the “lazy one” is not useful, it is incredibly useful.
+
+#### Real-time communication
+- Online Gaming (PUBG, Valorant)
+	- One update lost → okay
+	- TCP retransmission → lag & stutter
+- Video calls
+	- Dropping a frame is fine
+	- Delaying everything is not
+
+#### Request - Response type
+- DNS Query
+	- UDP is enough
+	- If one query fails, just send again (Ctrl C + Ctrl V 😄)
+
+---
+
+### When to use TCP?
+
+- File Download and Upload → must be 100% correct
+- Email → Cannot be delivered partially
+- Database queries & APIs → Must be accurate
+- Financial transactions → No room for mistakes
+
+---
+
+### Final takeaway - When to use TCP vs UDP
+
+#### When to Use TCP
+- When accuracy and reliability are required
+- When order of data matters
+- When retransmissions are acceptable and latency is not critical
+
+#### When to Use UDP
+- When low latency and speed matter more than perfection
+- When your app can tolerate packet loss (video calls, gaming, streaming)
+- When broadcasting/multicasting or very frequent, real-time updates are needed
+
+---
+
+
+That's it for today. Stay tuned for more interesting article.
