@@ -1,49 +1,41 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { supabase } from '@/lib/supabase';
+import { db } from '@/lib/firebase';
+import { doc, getDoc, setDoc, increment, updateDoc } from 'firebase/firestore';
 import { Eye } from 'lucide-react';
 
-export default function ViewCounter({ slug, increment = true }: { slug: string; increment?: boolean }) {
+export default function ViewCounter({ slug, increment: shouldIncrement = true }: { slug: string; increment?: boolean }) {
      const [views, setViews] = useState<number | null>(null);
 
      useEffect(() => {
           const handleViews = async () => {
                try {
-                    if (increment) {
-                         // Call the RPC function to safely increment the view count
-                         const { error } = await supabase.rpc('increment_view_count', {
-                              slug_input: slug,
-                         });
+                    const viewRef = doc(db, 'views', slug);
 
-                         if (error) {
-                              console.error('Error incrementing view count:', error);
-                         }
+                    if (shouldIncrement) {
+                         // Increment view count
+                         // setDoc with merge: true creates the document if it doesn't exist
+                         await setDoc(viewRef, { count: increment(1) }, { merge: true });
                     }
 
                     // Fetch the updated count
-                    const { data: viewData, error: viewError } = await supabase
-                         .from('views')
-                         .select('count')
-                         .eq('slug', slug)
-                         .single();
+                    const viewSnap = await getDoc(viewRef);
 
-                    if (viewError) {
-                         // If error is PGRST116 (no rows), it means 0 views.
-                         // But for now let's just log it.
-                         // console.error('Error fetching view count:', viewError);
-                    } else if (viewData) {
-                         setViews(viewData.count);
+                    if (viewSnap.exists()) {
+                         setViews(viewSnap.data().count);
                     } else {
                          setViews(0);
                     }
                } catch (err) {
-                    console.error('Unexpected error:', err);
+                    console.error('Error handling views:', err);
+                    // Fallback to 0 or previous views on error
+                    if (views === null) setViews(0);
                }
           };
 
           handleViews();
-     }, [slug, increment]);
+     }, [slug, shouldIncrement]);
 
      if (views === null) {
           return (
